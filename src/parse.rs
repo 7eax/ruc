@@ -28,10 +28,10 @@ impl Expr {
                 $x.strip_prefix($ls).and_then(|x| x.strip_suffix($rs))
             };
             ($x: expr, $ls: literal, $rs: literal) => {{
-                tokenize(x, &$ls).and_then(|x|  {
-                    let last = ok!(x.last())?.clone();
-                    let head = ok!(x.get(..x.len()-1))?.to_vec();
-                    let sliced = ok!(last.get(1..last.len()-1))?.to_vec();
+                tokenize(x, &$ls).and_then(|x| {
+                    let last = ok!(x.last().cloned())?;
+                    let head = ok!(x.get(..x.len()-1).cloned())?;
+                    let sliced = ok!(last.get(1..last.len()-1).cloned())?;
                     Ok((head, sliced))
                 })
             }};
