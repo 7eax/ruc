@@ -48,41 +48,41 @@ pub fn tokenize(input: &str, delimiter: &str) -> Result<Vec<String>, String> {
         if is_escape {
             current_token.push(c);
             is_escape = false;
-        } else {
-            match c {
-                '(' | '{' | '[' if !in_quote => {
-                    if c.to_string() == delimiter.to_string() && in_parentheses == 0 {
+            continue
+        }
+        match c {
+            '(' | '{' | '[' if !in_quote => {
+                if c.to_string() == delimiter.to_string() && in_parentheses == 0 {
+                    tokens.push(current_token.clone());
+                    current_token.clear();
+                }
+                current_token.push(c);
+                in_parentheses += 1;
+            }
+            ')' | '}' | ']' if !in_quote => {
+                current_token.push(c);
+                in_parentheses.checked_sub(1).map(|x| in_parentheses = x);
+            }
+            '"' => {
+                in_quote = !in_quote;
+                current_token.push(c);
+            }
+            '\\' if in_quote => {
+                current_token.push(c);
+                is_escape = true;
+            }
+            _ => {
+                if input.get(index..index + delimiter.len()) == Some(delimiter) {
+                    if in_parentheses != 0 || in_quote || is_escape {
+                        current_token += delimiter;
+                    } else if !current_token.is_empty() {
                         tokens.push(current_token.clone());
                         current_token.clear();
                     }
+                    index += delimiter.len();
+                    continue;
+                } else {
                     current_token.push(c);
-                    in_parentheses += 1;
-                }
-                ')' | '}' | ']' if !in_quote => {
-                    current_token.push(c);
-                    in_parentheses.checked_sub(1).map(|x| in_parentheses = x);
-                }
-                '"' => {
-                    in_quote = !in_quote;
-                    current_token.push(c);
-                }
-                '\\' if in_quote => {
-                    current_token.push(c);
-                    is_escape = true;
-                }
-                _ => {
-                    if input.get(index..index + delimiter.len()) == Some(delimiter) {
-                        if in_parentheses != 0 || in_quote || is_escape {
-                            current_token += delimiter;
-                        } else if !current_token.is_empty() {
-                            tokens.push(current_token.clone());
-                            current_token.clear();
-                        }
-                        index += delimiter.len();
-                        continue;
-                    } else {
-                        current_token.push(c);
-                    }
                 }
             }
         }
