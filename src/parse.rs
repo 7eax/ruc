@@ -43,7 +43,7 @@ impl Expr {
             let lhs = Box::new(Expr::parse(lhs)?);
             let rhs = Box::new(Expr::parse(rhs)?);
 
-            if !op.chars().all(char::is_ascii_punctuation) {
+            if !op.chars().all(|x|x.is_ascii_punctuation()) {
                 return Err(format!("invalid operator: {op}"));
             }
             Ok((lhs, op, rhs))
