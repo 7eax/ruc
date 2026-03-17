@@ -37,6 +37,7 @@ impl Expr {
                 })
             };
         }
+
         type Operator = (Box<Expr>, String, Box<Expr>);
         fn is_operator(source: &str) -> Result<Operator, String>  {
             let tokens: Vec<String> = tokenize(source, SPACE)?;
