@@ -39,7 +39,7 @@ impl Expr {
             let lhs = &ok!(tokens.get(..op))?.join(SPACE);
             let rhs = &ok!(tokens.get(op + 1..))?.join(SPACE);
 
-            let op = ok!(tokens.get(op))?;
+            let op = ok!(tokens.get(op))?.to_owned();
             let lhs = Box::new(Expr::parse(lhs)?);
             let rhs = Box::new(Expr::parse(rhs)?);
             Ok((lhs, op, rhs))
@@ -147,11 +147,11 @@ impl Expr {
             Expr::parse(expr)
         } 
         else if let Some((func, args)) = surround!(x, "(", ")") {
-            let args = tokenize(&args, ",")?.
-                iter().map(|x| Expr::parse(x));
             Ok(Expr::Call(
                 Box::new(Expr::parse(&func)?), 
-                args.collect::<Result<Vec<_>, String>>()?
+                tokenize(&args, ",")?
+                    .iter().map(|x| Expr::parse(x))
+                    .collect::<Result<Vec<_>, String>>()?
             ))
         } 
         else if let Some((arr, idx)) = surround!(x, "[", "]") {
