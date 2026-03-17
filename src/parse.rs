@@ -30,7 +30,7 @@ impl Expr {
             ($x: expr, $ls: literal, $rs: literal) => {
                 tokenize(x, &$ls).and_then(|x| {
                     if x.len() < 2 {
-                        return Err(format("not surrounded"))
+                        return Err(format!("not surrounded"))
                     } 
                     let args = ok!(x.last())?.to_string();
                     let func = ok!(x.get(..x.len()-1))?
