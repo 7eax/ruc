@@ -28,13 +28,14 @@ impl Expr {
                 $x.strip_prefix($ls).and_then(|x| x.strip_suffix($rs))
             };
             ($x: expr, $ls: literal, $rs: literal) => {{
+                dbg!(&x);
                 tokenize(x, &$ls).and_then(|x| {
                     dbg!(&x);
                     let args = ok!(x.last())?.to_string();
-                    let func = ok!(x.get(..x.len()-1))?
+                    let func = ok!(x.get(..x.len()-1))
                         .iter().map(|s| s.to_string()).collect::<String>();
-                    let args = ok!(args.get(1..args.len()-1))?.to_string();
 
+                    let args = ok!(args.get(1..args.len()-1))?.to_string();
                     Ok((func, args))
                 })
             }};
