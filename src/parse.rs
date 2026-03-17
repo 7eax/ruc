@@ -28,7 +28,7 @@ impl Expr {
                 $x.strip_prefix($ls).and_then(|x| x.strip_suffix($rs))
             };
             ($x: expr, $ls: literal, $rs: literal) => {
-                $x.strip_suffix($rs).and_then(|x| tokenize(x, &$ls))
+                ok!($x.strip_suffix($rs)).and_then(|x| tokenize(x, &$ls))
                     .and_then(|x| Ok((x.get(..x.len()-1)?.concat(), x.last()?)))
             };
         }
