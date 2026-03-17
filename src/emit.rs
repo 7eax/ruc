@@ -70,13 +70,11 @@ impl Expr {
             };
         }
         macro_rules! label {
-            () => {
-                {
-                    let id = ctx.global.idx;
-                    ctx.global.idx += 1;
-                    id.to_string()
-                }
-            };
+            () => {{
+                let id = ctx.global.idx;
+                ctx.global.idx += 1;
+                id.to_string()
+            }};
         }
 
         match self {
