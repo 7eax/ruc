@@ -29,12 +29,12 @@ impl Expr {
             };
             ($x: expr, $ls: literal, $rs: literal) => {{
                 tokenize(x, &$ls).and_then(|x| {
-                    let last = ok!(x.last())?.to_string();
-                    let head = ok!(x.get(..x.len()-1))?
+                    let args = ok!(x.last())?.to_string();
+                    let func = ok!(x.get(..x.len()-1))?
                         .iter().map(|s| s.to_string()).collect::<String>();
-                    let sliced = ok!(last.get(1..last.len()-1))?.to_string();
+                    let args = ok!(args.get(1..args.len()-1))?.to_string();
 
-                    Ok((head, sliced))
+                    Ok((func, args))
                 })
             }};
         }
