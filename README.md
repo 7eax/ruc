@@ -8,7 +8,7 @@
 ## Features
 
 - Aligned to the System V ABI, so able to link with the GNU C Library
-- Everything is expression, that returns value (stored in `rax` register)
+- Everything is an expression, that returns value (stored in `rax` register)
 - No type system! all values are 64-bit integer, you can freely operate it
 
 ## Goal
