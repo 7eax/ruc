@@ -27,10 +27,8 @@ impl Expr {
             ($ls: literal, $x: expr, $rs: literal) => {
                 $x.strip_prefix($ls).and_then(|x| x.strip_suffix($rs))
             };
-            ($x: expr, $ls: literal, $rs: literal) => {{
-                dbg!(&source, &x);
+            ($x: expr, $ls: literal, $rs: literal) => {
                 tokenize(x, &$ls).and_then(|x| {
-                      dbg!(&x);
                     let args = ok!(x.last())?.to_string();
                     let func = ok!(x.get(..x.len()-1))?
                         .iter().map(|s| s.to_string()).collect::<String>();
@@ -38,7 +36,7 @@ impl Expr {
                     let args = ok!(args.get(1..args.len()-1))?.to_string();
                     Ok((func, args))
                 })
-            }};
+            };
         }
         type Operator = (Box<Expr>, String, Box<Expr>);
         fn is_operator(source: &str) -> Result<Operator, String>  {
