@@ -1,5 +1,5 @@
 run() {
-    cat $1 | rem > main.asm
+    cat $1 | ruc > main.asm
     shift
 
     nasm -f elf64 -g -F dwarf -o main.o main.asm

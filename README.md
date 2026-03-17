@@ -1,4 +1,4 @@
-# Rem 
+# Ruc
 
 **_Make C more easy to code!_** the low-layer programming language
 
@@ -13,11 +13,11 @@
 
 ## Goal
 
-The goal in this project is that optimize Rem for Linux computing.
+The goal in this project is that optimize Ruc for Linux computing.
 
 By original compiler backends, emits Netwide assembler code directly.
 
 > [!TIP]
-> Rem just does **simplify** C with expression-based syntax in the Functional programming style. 
+> Ruc just does **simplify** C with expression-based syntax in the Functional programming style. 
 
-Thanks for support Rem project.
+Thanks for support Ruc project.

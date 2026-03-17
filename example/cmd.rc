@@ -1,5 +1,5 @@
 fn main() {
-    printf("(remsh) ")
+    printf("command: ")
     let prompt = malloc(512)
     scanf("%[^\n]", prompt)
 
