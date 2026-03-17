@@ -33,6 +33,7 @@ impl Expr {
                     let func = ok!(x.get(..x.len()-1))?
                         .iter().map(|s| s.to_string()).collect::<String>();
                     let args = ok!(args.get(1..args.len()-1))?.to_string();
+                    dbg!(&func, &args);
                     Ok((func, args))
                 })
             };
