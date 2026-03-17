@@ -27,10 +27,12 @@ impl Expr {
             ($ls: literal, $x: expr, $rs: literal) => {
                 $x.strip_prefix($ls).and_then(|x| x.strip_suffix($rs))
             };
-            ($x: expr, $ls: literal, $rs: literal) => {
+            ($x: expr, $ls: literal, $rs: literal) => {{
+                dbg!(   ok!($x.strip_suffix($rs)).and_then(|x| tokenize(x, &$ls))
+                    .and_then(|x| Ok((ok!(x.get(..x.len()-1))?.concat(), ok!(x.last())?.clone()))));
                 ok!($x.strip_suffix($rs)).and_then(|x| tokenize(x, &$ls))
                     .and_then(|x| Ok((ok!(x.get(..x.len()-1))?.concat(), ok!(x.last())?.clone())))
-            };
+            }};
         }
         type Operator = (Box<Expr>, String, Box<Expr>);
         fn is_operator(source: &str) -> Result<Operator, String>  {
