@@ -39,6 +39,10 @@ impl Expr {
             let lhs = &ok!(tokens.get(..op))?.join(SPACE);
             let rhs = &ok!(tokens.get(op + 1..))?.join(SPACE);
 
+            if !op.chars().all(char::is_ascii_punctuation) {
+                return Err(format!("invalid operator: {op}"));
+            }
+
             let op = ok!(tokens.get(op))?.to_owned();
             let lhs = Box::new(Expr::parse(lhs)?);
             let rhs = Box::new(Expr::parse(rhs)?);
@@ -128,6 +132,7 @@ impl Expr {
                 op => Err(format!("unknown operator: {op}")),
             }
         } 
+
         else if let Some(pointer) = x.strip_prefix("*") { 
             Ok(Expr::Derefer(Box::new(Expr::parse(pointer)?))) 
         } 
