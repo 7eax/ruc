@@ -97,6 +97,8 @@ pub fn tokenize(input: &str, delimiter: &str) -> Result<Vec<String>, String> {
         tokens.push(current_token.clone());
         current_token.clear();
     }
+
+    let tokens = tokens.iter().filter(|x|!x.is_empty());
     Ok(tokens)
 }
 
