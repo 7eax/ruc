@@ -28,10 +28,12 @@ impl Expr {
                 $x.strip_prefix($ls).and_then(|x| x.strip_suffix($rs))
             };
             ($x: expr, $ls: literal, $rs: literal) => {{
-                tokenize(x, &$ls).and_then(|x| Ok((
-                    ok!(x.get(..x.len()-1))?.concat(), 
-                    ok!(ok!(x.last())?.clone().get(1..x.len()-1))?
-                )))
+                tokenize(x, &$ls).and_then(|x|  {
+                    let last = ok!(x.last())?.clone();
+                    let head = ok!(x.get(..x.len()-1))?.to_vec();
+                    let sliced = ok!(last.get(1..last.len()-1))?.to_vec();
+                    Ok((head, sliced))
+                })
             }};
         }
         type Operator = (Box<Expr>, String, Box<Expr>);
