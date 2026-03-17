@@ -29,6 +29,7 @@ impl Expr {
             };
             ($x: expr, $ls: literal, $rs: literal) => {{
                 tokenize(x, &$ls).and_then(|x| {
+                    dbg!(&x);
                     let args = ok!(x.last())?.to_string();
                     let func = ok!(x.get(..x.len()-1))?
                         .iter().map(|s| s.to_string()).collect::<String>();
