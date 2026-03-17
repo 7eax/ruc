@@ -31,7 +31,8 @@ impl Expr {
                 $x.strip_suffix($rs).and_then(|x| x.rsplit_once($ls)) 
             };
         }
-        fn is_operator(source: &str) -> Result<(Expr, String, Expr), String>  {
+        type Operator = (Box<Expr>, String, Box<Expr>);
+        fn is_operator(source: &str) -> Result<Operator, String>  {
             let tokens: Vec<String> = tokenize(source, SPACE)?;
 
             let op = ok!(tokens.len().checked_sub(2))?;
@@ -108,7 +109,7 @@ impl Expr {
             Ok(Expr::Return(Box::new(Expr::parse(&x)?))) 
         }
         
-        else if let Ok((lhs, op, rhs)) = is_oprator(x) { 
+        else if let Ok((lhs, op, rhs)) = is_operator(x) { 
             match op.as_str() {
                 "+" => Ok(Expr::Add(lhs, rhs)),
                 "-" => Ok(Expr::Sub(lhs, rhs)),
