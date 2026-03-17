@@ -89,6 +89,7 @@ pub fn tokenize(input: &str, delimiter: &str) -> Result<Vec<String>, String> {
         index += 1
     }
 
+    
     if is_escape || in_quote || in_parentheses != 0 {
         return Err(format!("not closed: {current_token}"));
     }
@@ -96,7 +97,8 @@ pub fn tokenize(input: &str, delimiter: &str) -> Result<Vec<String>, String> {
         tokens.push(current_token.clone());
         current_token.clear();
     }
-
+    
+    dbg!(&tokens);
     let tokens = tokens.into_iter().filter(|x|!x.is_empty()).collect();
     Ok(tokens)
 }
