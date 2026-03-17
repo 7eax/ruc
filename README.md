@@ -3,7 +3,7 @@
 **_Make C more easy to code!_** the low-layer programming language
 
 > [!NOTE]
-> Compile for x86_64 Linux PC only (tested on Debian 13)
+> Compile for x86_64 Linux PC only (tested on Debian 13
 
 ## Features
 
@@ -18,6 +18,8 @@ The goal in this project is that optimize Ruc for Linux computing.
 By original compiler backends, emits Netwide assembler code directly.
 
 > [!TIP]
-> Ruc just does **simplify** C with expression-based syntax in the Functional programming style. 
+> Ruc just does **simplify** C with expression-based syntax
+> 
+> In the Functional programming style like OCaml or Rust
 
 Thanks for support Ruc project.
