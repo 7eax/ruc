@@ -58,7 +58,7 @@ pub fn tokenize(input: &str, delimiter: &str) -> Result<Vec<String>, String> {
                     current_token.push(c);
                     in_parentheses.checked_sub(1).map(|x| in_parentheses = x);
 
-                    if [")", "}", "]"].contains(delimiter) && in_parentheses == 0 {
+                    if [")", "}", "]"].contains(&delimiter) && in_parentheses == 0 {
                         tokens.push(current_token.clone());
                         current_token.clear();
                     }
