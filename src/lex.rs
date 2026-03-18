@@ -48,6 +48,7 @@ pub fn tokenize(input: &str, delimiter: &str) -> Result<Vec<String>, String> {
         if is_escape {
             current_token.push(c);
             is_escape = false;
+            index += 1
             continue
         }
         match c {
