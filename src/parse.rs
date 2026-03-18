@@ -53,10 +53,6 @@ impl Expr {
             let op = ok!(tokens.get(op))?.to_owned();
             let lhs = Box::new(Expr::parse(lhs)?);
             let rhs = Box::new(Expr::parse(rhs)?);
-
-            if !op.chars().all(|x|x.is_ascii_punctuation()) {
-                return Err(format!("invalid operator: {op}"));
-            }
             Ok((lhs, op, rhs))
         }
 
