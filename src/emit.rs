@@ -8,7 +8,9 @@ impl Define {
         let mut text = String::new();
         let ctx = &mut Context::default();
 
-        for func in &defines { text += &func.emit(ctx)?; }
+        for func in &defines { 
+            text += &func.emit(ctx)?; 
+        }
         let data = ctx.global.data.clone();
 
         for Define(name, _, _) in &defines {
